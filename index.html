@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!--<script type="text/javascript"> window._analytics = { "segment_key" : "", "coremetrics" : false, "optimizely" : false, "googleAddServices": false, "fullStory" : false}; </script>
+    <script src="https://console.test.cloud.ibm.com/analytics/build/bluemix-analytics.min.js"></script>-->
+
+    <script>
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){if(window.analytics.initialized)return window.analytics[e].apply(window.analytics,arguments);var i=Array.prototype.slice.call(arguments);i.unshift(e);analytics.push(i);return analytics}};for(var i=0;i<analytics.methods.length;i++){var key=analytics.methods[i];analytics[key]=analytics.factory(key)}analytics.load=function(key,i){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=i};analytics._writeKey="YOUR_API_KEY";;analytics.SNIPPET_VERSION="4.16.1";
+      analytics.load("VUzCTgCAEDAS3QQeNuk6PLo32WJUEoZY");
+      //analytics.page('Home', {title: 'Hybrid Cloud Mesh', path: '/topologies'});
+      }}();
+    </script>
+    <script src="src/index.js"></script>
+    <!--<script>
+      digitalData = {
+          page: {
+              pageInfo: {
+                  productTitle: 'IBM Hybrid Cloud Mesh',
+                  analytics: {
+                      category: 'Offering Interface'
+                  }
+              }
+          }
+      };
+  </script>
+    <script>
+      window.bluemixAnalytics.trackEvent('Created Object',{
+          productTitle: digitalData.page.pageInfo.productTitle,
+          category: 'Offering Interface',
+          objectType: 'example',
+          successFlag: 'true',
+          resultValue: 'test event sent'
+      });
+      </script>-->
+
+    <!--<script type="text/javascript">window._ibmAnalytics={settings:{name:"IBM Hybrid Cloud Mesh",isSpa:!0,tealiumProfileName:"ibm-web-app"},trustarc:{isCookiePreferencesButtonAlwaysOn:!0}},digitalData={page:{pageInfo:{ibm:{siteId:"IBM_"+_ibmAnalytics.settings.name}},category:{primaryCategory:"PC100"}}}</script><script src="//1.www.s81c.com/common/stats/ibm-common.js" type="text/javascript" async="async"></script>-->
+  </head>
+  <body onload="segment.init()">
+    <button class="auto-fire-button">Auto Fire</button>
+
+    <p>Event list</p>
+    <div class="event-list"></div>
+
+  </body>
+</html>
+
