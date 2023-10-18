@@ -57,6 +57,6 @@ notes/
 temp/
 
 # unit test
-src/**/*.js
-src/**/*.map
-coverage
+#src/**/*.js
+#src/**/*.map
+#coverage
