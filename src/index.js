@@ -1,5 +1,7 @@
 let autoFireButton = null;
 let listEventEl = null;
+let autoFireSelect = null;
+let autoSelected = 'All';
 
 const events = {
   "Product CTA Clicked": {
@@ -123,7 +125,7 @@ const events = {
       "path": "/locations",
       "events": [ 
         {"value": "Register location", "action": "Register location button clicked from locations page"},
-        {"value": "Register location model", "action": "Register location button clicked from register location modal"},
+        {"value": "Register location modal", "action": "Register location button clicked from register location modal"},
         {"value": "Location type selected", "action": "Type selected from register location modal"}
       ]
     },  
@@ -248,6 +250,23 @@ let segment = {
     autoFireButton.addEventListener('click', () => {
       segment.automate()
     })
+    autoFireSelect = document.querySelector('.auto-fire-select')
+    segment.addOption('All', 'All')
+    Object.keys(events).forEach((key) => {
+      Object.keys(events[key]).forEach((cat, idx) => {
+        segment.addOption(cat, cat)
+      })  
+    })
+    autoFireSelect.addEventListener('change', (evt) => {
+      console.log(autoFireSelect.value)
+      autoSelected = autoFireSelect.value;
+    })
+  },
+  addOption: (name, value) => {
+    let opt = document.createElement('option')
+    opt.text = name
+    opt.value = value
+    autoFireSelect.append(opt)
   },
   setDDO: (title, category) => {
     window.digitalData = {
@@ -269,34 +288,45 @@ let segment = {
   },
   automate: () => {
     listEventEl.innerHTML = '';
+    var child = listEventEl.lastElementChild;  
+    while (child) { 
+      listEventEl.removeChild(child); 
+      child = listEventEl.lastElementChild; 
+    } 
     let div;
     let props;
     Object.keys(events).forEach((key) => {
       div = document.createElement('div')
       div.innerHTML = key
       listEventEl.append(div)
-      Object.keys(events[key]).forEach((cat, idx) => {
-        console.log(cat)
-        segment.setDDO('Hybrid Cloud Mesh', cat)
-        segment.page(cat, {title: 'Hybrid Cloud Mesh', path: events[key][cat].path})
-        //analytics.page('Home', {title: 'Hybrid Cloud Mesh', path: '/topologies'});
-        div = document.createElement('div')
-        div.innerHTML = cat
-        listEventEl.append(div)
-        let evts = events[key][cat]['events'];
-        evts.forEach((e, idx) => {
-          console.log(e)
-          props = {};
-          props[cat] = e.value;
-          props['action'] = e.action;
-          segment.track(key, props)
-          //if(idx == 0) {
-          //  segment.track(key, props)
-          //}
-          div = document.createElement('div')
-          div.innerHTML = JSON.stringify(e)
-          listEventEl.append(div)
-        })
+      Object.keys(events[key]).forEach((cat, eindex) => {
+        if(cat == autoSelected || autoSelected == 'All') {
+          setTimeout(() => {
+            console.log(cat)
+            segment.setDDO('Hybrid Cloud Mesh', cat)
+            segment.page(cat, {title: 'Hybrid Cloud Mesh', path: events[key][cat].path})
+            //analytics.page('Home', {title: 'Hybrid Cloud Mesh', path: '/topologies'});
+            div = document.createElement('div')
+            div.innerHTML = cat
+            listEventEl.append(div)
+            let evts = events[key][cat]['events'];
+            evts.forEach((e, idx) => {
+              setTimeout(() => {
+                console.log(e)
+                props = {};
+                props[cat] = e.value;
+                props['action'] = e.action;
+                segment.track(key, props)
+                //if(idx == 0) {
+                //  segment.track(key, props)
+                //}
+                div = document.createElement('div')
+                div.innerHTML = JSON.stringify(e)
+                listEventEl.append(div)  
+              }, autoSelected == 'All' ? idx*1000*(eindex+1) : idx*1000)
+            })    
+          }, autoSelected == 'All' ? eindex*500 : 200)
+        }
       })
     })
   }
