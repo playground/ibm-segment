@@ -261,6 +261,7 @@ let segment = {
       console.log(autoFireSelect.value)
       autoSelected = autoFireSelect.value;
     })
+    //window._analytics.commonProperties = { productCode: 'WW1314', productCodyType: 'WWPC' }
   },
   addOption: (name, value) => {
     let opt = document.createElement('option')
@@ -304,7 +305,7 @@ let segment = {
           setTimeout(() => {
             console.log(cat)
             segment.setDDO('Hybrid Cloud Mesh', cat)
-            segment.page(cat, {title: 'Hybrid Cloud Mesh', path: events[key][cat].path})
+            segment.page(cat, {title: 'Hybrid Cloud Mesh', path: events[key][cat].path, productCode: 'WW1314', productCodeType: 'WWPC'})
             //analytics.page('Home', {title: 'Hybrid Cloud Mesh', path: '/topologies'});
             div = document.createElement('div')
             div.innerHTML = cat
@@ -313,7 +314,7 @@ let segment = {
             evts.forEach((e, idx) => {
               setTimeout(() => {
                 console.log(e)
-                props = {};
+                props = {productCode: 'WW1314', productCodeType: 'WWPC'};
                 props[cat] = e.value;
                 props['action'] = e.action;
                 segment.track(key, props)
