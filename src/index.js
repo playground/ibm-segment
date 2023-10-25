@@ -323,7 +323,7 @@ let segment = {
                 div = document.createElement('div')
                 div.innerHTML = JSON.stringify(evts[m])
                 listEventEl.append(div)  
-              }, autoSelected == 'All' ? 5000*(m+1) : (m+1)*5000)
+              }, autoSelected == 'All' ? 5000*(m+1)+800 : (m+1)*5000)+800
             }
             //evts.forEach((e, idx) => {
             //  setTimeout(() => {
@@ -340,7 +340,7 @@ let segment = {
             //    listEventEl.append(div)  
             //  }, autoSelected == 'All' ? idx*3000*(eindex+1) : idx*3000)
             //})    
-          }, autoSelected == 'All' ? (i+1)*1000 : (i+1)*1000)
+          }, autoSelected == 'All' ? (k)*3000+300 : (k)*3000)+300
         }
       }
     }
