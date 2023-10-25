@@ -296,39 +296,87 @@ let segment = {
     } 
     let div;
     let props;
-    Object.keys(events).forEach((key) => {
+    let evtKeys = Object.keys(events);
+    for(let i=0; i<evtKeys.length; i++) {
       div = document.createElement('div')
-      div.innerHTML = key
+      div.innerHTML = evtKeys[i]
       listEventEl.append(div)
-      Object.keys(events[key]).forEach((cat, eindex) => {
-        if(cat == autoSelected || autoSelected == 'All') {
+      let cats = Object.keys(events[evtKeys[i]])
+      for(let k=0; k<cats.length; k++) {
+        if(cats[k] == autoSelected || autoSelected == 'All') {
           setTimeout(() => {
-            console.log(cat)
-            segment.setDDO('Hybrid Cloud Mesh', cat)
-            segment.page(cat, {title: 'Hybrid Cloud Mesh', path: events[key][cat].path, productCode: 'WW1314', productCodeType: 'WWPC'})
+            console.log(cats[k])
+            segment.setDDO('Hybrid Cloud Mesh', cats[k])
+            segment.page(cats[k], {title: 'Hybrid Cloud Mesh', path: events[evtKeys[i]][cats[k]].path, productCode: 'WW1314', productCodeType: 'WWPC'})
             //analytics.page('Home', {title: 'Hybrid Cloud Mesh', path: '/topologies'});
             div = document.createElement('div')
-            div.innerHTML = cat
+            div.innerHTML = cats[k]
             listEventEl.append(div)
-            let evts = events[key][cat]['events'];
-            evts.forEach((e, idx) => {
+            let evts = events[evtKeys[i]][cats[k]]['events'];
+            for(let m=0; m<evts.length; m++) {
               setTimeout(() => {
-                console.log(e)
+                console.log(evts[m])
                 props = {productCode: 'WW1314', productCodeType: 'WWPC'};
-                props[cat] = e.value;
-                props['action'] = e.action;
-                segment.track(key, props)
-                //if(idx == 0) {
-                //  segment.track(key, props)
-                //}
+                props[cats[k]] = evts[m].value;
+                props['action'] = evts[m].action;
+                segment.track(evtKeys[i], props)
                 div = document.createElement('div')
-                div.innerHTML = JSON.stringify(e)
+                div.innerHTML = JSON.stringify(evts[m])
                 listEventEl.append(div)  
-              }, autoSelected == 'All' ? idx*1000*(eindex+1) : idx*1000)
-            })    
-          }, autoSelected == 'All' ? eindex*500 : 200)
+              }, autoSelected == 'All' ? 5000*(m+1) : (m+1)*5000)
+            }
+            //evts.forEach((e, idx) => {
+            //  setTimeout(() => {
+            //    console.log(e)
+            //    props = {productCode: 'WW1314', productCodeType: 'WWPC'};
+            //    props[cat] = e.value;
+            //    props['action'] = e.action;
+            //    segment.track(key, props)
+            //    //if(idx == 0) {
+            //    //  segment.track(key, props)
+            //    //}
+            //    div = document.createElement('div')
+            //    div.innerHTML = JSON.stringify(e)
+            //    listEventEl.append(div)  
+            //  }, autoSelected == 'All' ? idx*3000*(eindex+1) : idx*3000)
+            //})    
+          }, autoSelected == 'All' ? (i+1)*1000 : (i+1)*1000)
         }
-      })
-    })
+      }
+    }
+    //Object.keys(events).forEach((key) => {
+    //  div = document.createElement('div')
+    //  div.innerHTML = key
+    //  listEventEl.append(div)
+    //  Object.keys(events[key]).forEach((cat, eindex) => {
+    //    if(cat == autoSelected || autoSelected == 'All') {
+    //      setTimeout(() => {
+    //        console.log(cat)
+    //        segment.setDDO('Hybrid Cloud Mesh', cat)
+    //        segment.page(cat, {title: 'Hybrid Cloud Mesh', path: events[key][cat].path, productCode: 'WW1314', productCodeType: 'WWPC'})
+    //        //analytics.page('Home', {title: 'Hybrid Cloud Mesh', path: '/topologies'});
+    //        div = document.createElement('div')
+    //        div.innerHTML = cat
+    //        listEventEl.append(div)
+    //        let evts = events[key][cat]['events'];
+    //        evts.forEach((e, idx) => {
+    //          setTimeout(() => {
+    //            console.log(e)
+    //            props = {productCode: 'WW1314', productCodeType: 'WWPC'};
+    //            props[cat] = e.value;
+    //            props['action'] = e.action;
+    //            segment.track(key, props)
+    //            //if(idx == 0) {
+    //            //  segment.track(key, props)
+    //            //}
+    //            div = document.createElement('div')
+    //            div.innerHTML = JSON.stringify(e)
+    //            listEventEl.append(div)  
+    //          }, autoSelected == 'All' ? idx*3000*(eindex+1) : idx*3000)
+    //        })    
+    //      }, autoSelected == 'All' ? eindex*3000 : 3000)
+    //    }
+    //  })
+    //})
   }
 }
