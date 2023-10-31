@@ -4,7 +4,7 @@ let autoFireSelect = null;
 let autoSelected = 'All';
 
 const events = {
-  "Product CTA Clicked": {
+  "CTA Clicked": {
     "Home": {
       "path": '/',
       "events": [ 
@@ -19,7 +19,7 @@ const events = {
         {"value": "Register location link clicked", "action": "Register location link clicked from home page"}
       ]  
     },
-    "AdminDropdown": {
+    "Admin Dropdown": {
       "path": "/admin",
       "events": [ 
         {"value": "Resource group open", "action": "Open the resource group page"},
@@ -29,7 +29,7 @@ const events = {
         {"value": "Roles open", "action": "Open the roles page"}
       ] 
     },  
-    "AdminResourceGroups": {
+    "Admin Resource Groups": {
       "path": "/admin",
       "events": [ 
         {"value": "Create resource group modal", "action": "Open create a resource group modal"},
@@ -39,7 +39,7 @@ const events = {
         {"value": "Delete resource group", "action": "Deleting a resource group"}
       ]
     },  
-    "AdminAPIKeys": {
+    "Admin API Keys": {
       "path": "/admin",
       "events": [ 
         {"value": "View API key", "action": "View an API key details"},
@@ -49,7 +49,7 @@ const events = {
         {"value": "Delete API key", "action": "Deleting an API key"}
       ]
     },
-    "AdminSecrets": {
+    "Admin Secrets": {
       "path": "/admin",
       "events": [ 
         {"value": "View secret", "action": "View secret details"},
@@ -59,7 +59,7 @@ const events = {
         {"value": "Delete secret", "action": "Deleting secret"}
       ]
     },  
-    "AdminIdentities": {
+    "Admin Identities": {
       "path": "/admin",
       "events": [ 
         {"value": "View identities", "action": "View identity details"},
@@ -69,7 +69,7 @@ const events = {
         {"value": "Delete identity", "action": "Deleting identity"}
       ]
     },  
-    "AdminRoles": {
+    "Admin Roles": {
       "path": "/admin",
       "events": [ 
         {"value": "View role", "action": "View role details"},
@@ -79,7 +79,7 @@ const events = {
         {"value": "Delete role", "action": "Deleting role"}
       ]
     },  
-    "SideNavigation": {
+    "Side Navigation": {
       "path": "/admin",
       "events": [ 
         {"value": "Applications & Services nav clicked", "action": "Open applications and services"},
@@ -100,7 +100,7 @@ const events = {
         {"value": "Autodiscover on", "action": "Autodiscover switch to on from register cloud"}
       ]
     },  
-    "CloudDetails": {
+    "Cloud Details": {
       "path": "/cloudDetails",
       "events": [ 
         {"value": "Edit icon", "action": "Edit icon clicked from cloudDetails page"},
@@ -129,7 +129,7 @@ const events = {
         {"value": "Location type selected", "action": "Type selected from register location modal"}
       ]
     },  
-    "LocationsDetails": {
+    "Locations Details": {
       "path": "/cloud/locationDetails",
       "events": [ 
         {"value": "Managed deployment environment", "action": "Managed deployment environment link clicked from locationDetails page"},
@@ -138,7 +138,7 @@ const events = {
         {"value": "Deleting location", "action": "Deleting a location"}
       ]
     },  
-    "DeploymentEnvironment": {
+    "Deployment Environment": {
       "path": "/deploymentenvironments",
       "events": [ 
         {"value": "Register deployment environment", "action": "Register environment button clicked from deployment environments"},
@@ -146,7 +146,7 @@ const events = {
         {"value": "Autodiscover namespace on", "action": "Autodiscover namespace switch on from register deployment environment"}
       ]
     },  
-    "DeploymentEnvironmentDetails": {
+    "Deployment Environment Details": {
       "path": "/deploymentEnvironmentDetails",
       "events": [ 
         {"value": "Edit deployment environment details", "action": "Edit deployment environment details"},
@@ -163,7 +163,7 @@ const events = {
         {"value": "Register application modal", "action": "Register button clicked from register application modal"}
       ]
     },  
-    "ApplicationDetails": {
+    "Application Details": {
       "path": "/applicationDetails",
       "events": [ 
         {"value": "Edit application details", "action": "Edit the details of an application"},
@@ -176,7 +176,7 @@ const events = {
         {"value": "Deleting application", "action": "Deleting an application"}
       ]
     },  
-    "ApplicationDeploymentDetails": {
+    "Application Deployment Details": {
       "path": "/applicationDeploymentDetails",
       "events": [ 
         {"value": "Register instance", "action": "Register instance button clicked from application deployment details page"},
@@ -194,7 +194,7 @@ const events = {
         {"value": "Open policy", "action": "Open a policy to see its details"}
       ]
     },  
-    "PolicyDetails": {
+    "Policy Details": {
       "path": "/connectionaccesspolicydetails",
       "events": [ 
         {"value": "Edit policy details", "action": "Edit the details of the policy"},
@@ -219,7 +219,7 @@ const events = {
         {"value": "Assign event", "action": "Assign event flow triggered"}
       ]
     },  
-    "EventDetails": {
+    "Event Details": {
       "path": "/eventDetails",
       "events": [ 
         {"value": "Comment on event", "action": "Comment on an event"},
@@ -234,7 +234,7 @@ const events = {
         {"value": "Create gateway", "action": "Finish the create gateway flow"}
       ]
     },  
-    "GatewayDetails": {
+    "Gateway Details": {
       "path": "/gatewayDetails",
       "events": [ 
         {"value": "Edit gateway", "action": "Edit the gateway details"},
@@ -316,8 +316,9 @@ let segment = {
             for(let m=0; m<evts.length; m++) {
               setTimeout(() => {
                 console.log(evts[m])
-                props = {productCode: 'WW1314', productCodeType: 'WWPC'};
-                props[cats[k]] = evts[m].value;
+                props = {productCode: 'WW1314', productCodeType: 'WWPC', UT30: '30ASC', productTitle: 'IBM Hybrid Cloud Mesh'};
+                props['CTA'] = `${cats[k]}, ${evts[m].value}`;
+                props['text'] = `Product CTA Clicked`;
                 props['action'] = evts[m].action;
                 segment.track(evtKeys[i], props)
                 div = document.createElement('div')
