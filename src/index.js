@@ -35,7 +35,7 @@ const events = {
         {"value": "Create resource group modal", "action": "Open create a resource group modal"},
         {"value": "Create resource group", "action": "Finish create resource group flow"},
         {"value": "Edit resource group", "action": "Edit a resource group"},
-        {"value": "View resource groupn", "action": "View a resource group details"},
+        {"value": "View resource group", "action": "View a resource group details"},
         {"value": "Delete resource group", "action": "Deleting a resource group"}
       ]
     },  
@@ -95,6 +95,7 @@ const events = {
     "Cloud": {
       "path": "/cloud",
       "events": [ 
+        {"value": "Register cloud", "action": "Register cloud button clicked from clouds page"},
         {"value": "Register cloud clicked", "action": "Register button clicked after cloud selected"},
         {"value": "Next clicked", "action": "Next button clicked after cloud selected"},
         {"value": "Autodiscover on", "action": "Autodiscover switch to on from register cloud"}
@@ -118,7 +119,8 @@ const events = {
         {"value": "Gateway installation method", "action": "Gateway installation method radio button selected from connect edge gateway modal"},
         {"value": "Deploy edge gateway", "action": "Deploy edge gateway button clicked from connect edge gateway modal"},
         {"value": "Register edge gateway", "action": "Register edge gateway button clicked from deployment environment configuration modal"},
-        {"value": "Delete a cloud", "action": "Deleting a cloud"}
+        {"value": "Delete a cloud", "action": "Deleting a cloud"},
+        {"value": "Namespace details click", "action": "Namespace details link clicked from cloudDetails page"}
       ]
     },  
     "Locations": {
@@ -324,7 +326,7 @@ let segment = {
                 div = document.createElement('div')
                 div.innerHTML = JSON.stringify(evts[m])
                 listEventEl.append(div)  
-              }, autoSelected == 'All' ? 5000*(m+1)+800 : (m+1)*5000)+800
+              }, autoSelected == 'All' ? 5000*(m+1)+800 : (m+1)*3000)+800
             }
             //evts.forEach((e, idx) => {
             //  setTimeout(() => {
@@ -341,7 +343,7 @@ let segment = {
             //    listEventEl.append(div)  
             //  }, autoSelected == 'All' ? idx*3000*(eindex+1) : idx*3000)
             //})    
-          }, autoSelected == 'All' ? (k)*3000+300 : (k)*3000)+300
+          }, autoSelected == 'All' ? (k+1)*3000+300 : 300)
         }
       }
     }
