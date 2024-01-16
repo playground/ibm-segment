@@ -4,6 +4,27 @@ let autoFireSelect = null;
 let autoSelected = 'All';
 
 const events = {
+  "Created Object": {
+    "Home": {
+      "path": '/',
+      "events": [ 
+        {"value": "Register application link clicked", "objectType": "button"},
+        {"value": "Register environment link clicked", "objectType": "button"},
+        {"value": "Register cloud link clicked", "objectType": "button"},
+        {"value": "Register application link clicked", "objectType": "button"},
+        {"value": "Create policy link clicked", "objectType": "button"},
+        {"value": "Register location link clicked", "objectType": "button"}
+      ]  
+    }
+  },
+  "UI Interaction": {
+    "Home": {
+      "path": '/',
+      "events": [ 
+        {"value": "Map view link clicked", "action": "Map view link clicked from home page"}
+      ]  
+    }
+  },
   "CTA Clicked": {
     "Home": {
       "path": '/',
@@ -322,7 +343,12 @@ let segment = {
                 props['CTA'] = `${cats[k]}, ${evts[m].value}`;
                 props['instanceId'] = 'ccrf3jkf0uv4vo3401a0';
                 props['text'] = `Product CTA Clicked`;
-                props['action'] = evts[m].action;
+                if(evts[m].action) {
+                  props['action'] = evts[m].action;
+                }
+                if(evts[m]['objectType']) {
+                  props['objectType'] = evts[m]['objectType'];
+                }
                 segment.track(evtKeys[i], props)
                 div = document.createElement('div')
                 div.innerHTML = JSON.stringify(evts[m])
