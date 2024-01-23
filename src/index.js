@@ -8,7 +8,7 @@ const events = {
     "path": "/",
     "events": [ 
       {"event": "CTA Clicked", "props": {"CTA": "Get started link clicked", "action": "Get started link clicked from home page"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Canvas view link clicked", "action": "Canvas view link clicked from home page"}},
+      {"event": "UI Interaction", "props": {"CTA": "Canvas view link clicked", "action": "Canvas view link clicked from home page"}},
       {"event": "Created Object", "props": {"action": "Register application link clicked", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Register environment link clicked", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Register cloud link clicked", "objectType": "button"}},
@@ -31,7 +31,7 @@ const events = {
   "Admin Resource Groups": {
     "path": "/admin",
     "events": [ 
-      {"event": "CTA Clicked", "props": {"CTA": "Create resource group modal", "action": "Open create a resource group modal"}},
+      {"event": "Created Object", "props": {"action": "Create resource group modal", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Create resource group", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Edit resource group", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "View resource group", "objectType": "button"}},
@@ -43,7 +43,7 @@ const events = {
     "events": [ 
       {"event": "Read Object", "props": {"action": "View API key", "objectType": "button"}},
       {"event": "Read Object", "props": {"action": "Edit API key", "objectType": "button"}},
-      {"event": "CTA Clicked", "props": {"CTA": "create API key", "action": "Launch create API key modal"}},
+      {"event": "Created Object", "props": {"action": "create API key", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Generate API key", "objectType": "button"}},
       {"event": "Deleted Object", "props": {"action": "Delete API key", "objectType": "button"}}
     ]
@@ -52,7 +52,7 @@ const events = {
     "path": "/admin",
     "events": [ 
       {"event": "Read Object", "props": {"action": "View secret", "objectType": "button"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Register secret modal", "action": "Launch the egister secret modal"}},
+      {"event": "Created Object", "props": {"action": "Register secret modal", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Register secret", "objectType": "button"}},
       {"event": "Updated Object", "props": {"action": "Edit secret", "objectType": "button"}},
       {"event": "Deleted Object", "props": {"action": "Delete secret", "objectType": "button"}}
@@ -62,7 +62,7 @@ const events = {
     "path": "/admin",
     "events": [ 
       {"event": "Read Object", "props": {"action": "View identities", "objectType": "button"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Create identity modal", "action": "Launch create identity modal"}},
+      {"event": "Created Object", "props": {"action": "Create identity modal", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Create identity", "objectType": "button"}},
       {"event": "Updated Object", "props": {"action": "Edit identity", "objectType": "button"}},
       {"event": "Deleted Object", "props": {"action": "Delete identity", "objectType": "button"}}
@@ -72,7 +72,7 @@ const events = {
     "path": "/admin",
     "events": [ 
       {"event": "Read Object", "props": {"action": "View role", "objectType": "button"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Create role modal", "action": "Launch create role modal"}},
+      {"event": "Created Object", "props": {"action": "Create role modal", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Create role", "objectType": "button"}},
       {"event": "Updated Object", "props": {"action": "Edit role", "objectType": "button"}},
       {"event": "Deleted Object", "props": {"action": "Delete role", "objectType": "button"}}
@@ -94,7 +94,7 @@ const events = {
   "Cloud": {
     "path": "/cloud",
     "events": [ 
-      {"event": "CTA Clicked", "props": {"CTA": "Register cloud", "action": "Register cloud button clicked from clouds page"}},
+      {"event": "Created Object", "props": {"action": "Register cloud", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Register cloud clicked", "objectType": "button"}},
       {"event": "UI Interaction", "props": {"CTA": "Next clicked", "action": "Next button clicked after cloud selected"}},
       {"event": "UI Interaction", "props": {"CTA": "Autodiscover on", "action": "Autodiscover switch to on from register cloud"}}
@@ -107,16 +107,16 @@ const events = {
       {"event": "Read Object", "props": {"action": "Location details", "objectType": "button"}},
       {"event": "UI Interaction", "props": {"CTA": "Manage cloud location", "action": "Manage cloud location switched on from cloudDetails page"}},
       {"event": "UI Interaction", "props": {"CTA": "Manage cloud environments vpc", "action": "Manage cloud environment vpc switched on from cloudDetails page"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Register deployment environment vpc", "action": "Register deployment environment vpc button clicked from cloudDetails page"}},
+      {"event": "Created Object", "props": {"action": "Register deployment environment vpc", "objectType": "button"}},
       {"event": "UI Interaction", "props": {"CTA": "Manage cloud environment cluster", "action": "Manage cloud environment cluster switched on from cloudDetails page"}},
       {"event": "UI Interaction", "props": {"CTA": "Autodiscover namespace cluster", "action": "Autodicover namespace cluster switched on from cloudDetails page"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Register deployment environment cluster", "action": "Register deployment environment cluster button clicked from cloudDetails page"}},
+      {"event": "Created Object", "props": {"action": "Register deployment environment cluster", "objectType": "button"}},
       {"event": "Read Object", "props": {"action": "Deployment environment details", "objectType": "button"}},
       {"event": "UI Interaction", "props": {"CTA": "Cloud location", "action": "Cloud location link clicked from cloudDetails page"}},
       {"event": "UI Interaction", "props": {"CTA": "Manage autodiscover namespace cluster", "action": "Manage autodiscover namespace cluster switched on from deployment environment configuration modal"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Connect a gateway cluster", "action": "Connect a gateway cluster button clicked from deployment environment configuration modal"}},
+      {"event": "Created Object", "props": {"action": "Connect a gateway cluster", "objectType": "button"}},
       {"event": "UI Interaction", "props": {"CTA": "Gateway installation method", "action": "Gateway installation method radio button selected from connect edge gateway modal"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Deploy edge gateway", "action": "Deploy edge gateway button clicked from connect edge gateway modal"}},
+      {"event": "Created Object", "props": {"action": "Deploy edge gateway", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Register edge gateway", "objectType": "button"}},
       {"event": "Deleted Object", "props": {"action": "Delete a cloud", "objectType": "button"}},
       {"event": "UI Interaction", "props": {"CTA": "Namespace details click", "action": "Namespace details link clicked from cloudDetails page"}}
@@ -125,7 +125,7 @@ const events = {
   "Locations": {
     "path": "/locations",
     "events": [ 
-      {"event": "CTA Clicked", "props": {"CTA": "Register location", "action": "Register location button clicked from locations page"}},
+      {"event": "Created Object", "props": {"action": "Register location", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Register location modal", "objectType": "button"}},
       {"event": "UI Interaction", "props": {"CTA": "Location type selected", "action": "Type selected from register location modal"}}
     ]
@@ -134,8 +134,8 @@ const events = {
     "path": "/cloud/locationDetails",
     "events": [ 
       {"event": "UI Interaction", "props": {"CTA": "Managed deployment environment", "action": "Managed deployment environment link clicked from locationDetails page"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Register deployment environment from location", "action": "Register deployment environment link clicked from locationDetails page"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Register deployment environment from cloud", "action": "Register deployment environment link clicked from cloudDetails page"}},
+      {"event": "Created Object", "props": {"action": "Register deployment environment from location", "objectType": "button"}},
+      {"event": "Created Object", "props": {"action": "Register deployment environment from cloud", "objectType": "button"}},
       {"event": "Deleted Object", "props": {"action": "Deleting location", "objectType": "button"}}
     ]
   },  
@@ -160,7 +160,7 @@ const events = {
   "Applications": {
     "path": "/applications",
     "events": [ 
-      {"event": "CTA Clicked", "props": {"CTA": "Register application", "action": "Register application button clicked from applications page"}},
+      {"event": "Created Object", "props": {"action": "Register application", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Register application modal", "objectType": "button"}}
     ]
   },  
@@ -168,9 +168,9 @@ const events = {
     "path": "/applicationDetails",
     "events": [ 
       {"event": "Updated Object", "props": {"action": "Edit application details", "objectType": "button"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Register service", "action": "Register service link clicked from applicationDetails page"}},
+      {"event": "Created Object", "props": {"action": "Register service", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Register service modal", "objectType": "button"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Register deployment", "action": "Register deployment button clicked from applications page"}},
+      {"event": "Created Object", "props": {"action": "Register deployment", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Register application deployment modal", "objectType": "button"}},
       {"event": "UI Interaction", "props": {"CTA": "Deployment instance selected", "action": "Deployment instance link clicked from applicationDetails page"}},
       {"event": "Deleted Object", "props": {"action": "Deleting service", "objectType": "button"}},
@@ -190,7 +190,7 @@ const events = {
   "Policies": {
     "path": "/connectionAccessPolicies",
     "events": [ 
-      {"event": "CTA Clicked", "props": {"CTA": "Create policy", "action": "Create Policy button clicked from connectionAccessPolicies"}},
+      {"event": "Created Object", "props": {"action": "Create policy", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Create Policy modal", "objectType": "button"}},
       {"event": "Read Object", "props": {"action": "Open policy", "objectType": "button"}}
     ]
@@ -218,20 +218,20 @@ const events = {
     "path": "/event",
     "events": [ 
       {"event": "Read Object", "props": {"action": "Open event", "objectType": "button"}},
-      {"event": "CTA Clicked", "props": {"CTA": "Assign event", "action": "Assign event flow triggered"}}
+      {"event": "Created Object", "props": {"action": "Assign event", "objectType": "button"}}
     ]
   },  
   "Event Details": {
     "path": "/eventDetails",
     "events": [ 
-      {"event": "CTA Clicked", "props": {"CTA": "Comment on event", "action": "Comment on an event"}},
+      {"event": "Created Object", "props": {"action": "Comment on event", "objectType": "button"}},
       {"event": "Deleted Object", "props": {"action": "Deleting event", "objectType": "button"}}
     ]
   },  
   "Gateways": {
     "path": "/gateways",
     "events": [ 
-      {"event": "CTA Clicked", "props": {"CTA": "Create gateway modal", "action": "Launch create gateway modal"}},
+      {"event": "Created Object", "props": {"action": "Create gateway modal", "objectType": "button"}},
       {"event": "Read Object", "props": {"action": "Open gateway details", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Create gateway", "objectType": "button"}}
     ]
