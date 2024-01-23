@@ -114,6 +114,7 @@ const events = {
       {"event": "Read Object", "props": {"action": "Deployment environment details", "objectType": "button"}},
       {"event": "UI Interaction", "props": {"CTA": "Cloud location", "action": "Cloud location link clicked from cloudDetails page"}},
       {"event": "UI Interaction", "props": {"CTA": "Manage autodiscover namespace cluster", "action": "Manage autodiscover namespace cluster switched on from deployment environment configuration modal"}},
+      {"event": "CommonMilestone", "props": {"commonMilestoneName": "Manage autodiscover namespace cluster", "action": "Manage autodiscover namespace cluster milestone"}},
       {"event": "Created Object", "props": {"action": "Connect a gateway cluster", "objectType": "button"}},
       {"event": "UI Interaction", "props": {"CTA": "Gateway installation method", "action": "Gateway installation method radio button selected from connect edge gateway modal"}},
       {"event": "Created Object", "props": {"action": "Deploy edge gateway", "objectType": "button"}},
@@ -152,6 +153,7 @@ const events = {
     "events": [ 
       {"event": "Updated Object", "props": {"action": "Edit deployment environment details", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Register namespace", "objectType": "button"}},
+      {"event": "CommonMilestone", "props": {"commonMilestoneName": "Register namespace", "action": "Register namespace milestone"}},
       {"event": "UI Interaction", "props": {"CTA": "Autodiscover namespace applications", "action": "Autodiscover applications in the namespace"}},
       {"event": "Updated Object", "props": {"action": "Save changes to the namespace", "objectType": "button"}},
       {"event": "Deleted Object", "props": {"action": "Delete deployment environment", "objectType": "button"}}
@@ -192,6 +194,7 @@ const events = {
     "events": [ 
       {"event": "Created Object", "props": {"action": "Create policy", "objectType": "button"}},
       {"event": "Created Object", "props": {"action": "Create Policy modal", "objectType": "button"}},
+      {"event": "CommonMilestone", "props": {"commonMilestoneName": "Create Policy modal", "action": "Create Policy model milestone"}},
       {"event": "Read Object", "props": {"action": "Open policy", "objectType": "button"}}
     ]
   },  
