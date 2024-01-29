@@ -1,3 +1,3 @@
 # ibm-segment
 
-Auto fire events by providing a list of events in json format.
+Testing tool for auto firing events by providing a list of events in json format.
