@@ -1,4 +1,4 @@
-const events = {
+{
     "Home": {
       "path": "/",
       "events": [ 
@@ -175,5 +175,3 @@ const events = {
       ]
     }
 }
-
-  export default events;

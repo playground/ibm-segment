@@ -1,5 +1,5 @@
 import Analytics from 'analytics-node';
-import events from './events.js';
+import eventsData from './events.json' assert { type: 'json' };
 
 interface EventProps {
   [key: string]: any; 
@@ -34,7 +34,7 @@ function createSegment(writeKey?: string) {
       segmentAnalytics.track({
         event,
         properties: props,
-        userId: 'userId', // This should be dynamically set based on your application's user context
+        userId: 'userId', // Ideally, this should be dynamically set based on your application's user context
       });
       console.log(`Tracking event: ${event}`, props);
     },
@@ -47,7 +47,7 @@ function createSegment(writeKey?: string) {
       segmentAnalytics.page({
         name,
         properties: props,
-        userId: 'userId', // This should be dynamically set
+        userId: 'userId', // Again, this should be dynamically set
       });
       console.log(`Page view: ${name}`, props);
     },
@@ -58,13 +58,13 @@ function createSegment(writeKey?: string) {
         return;
       }
       console.log(`Automating events for selection: ${selected}`);
-      const evtKeys = Object.keys(events) as Array<keyof typeof events>;
+      const evtKeys = Object.keys(eventsData) as Array<keyof typeof eventsData>;
 
       evtKeys.forEach((key, index) => {
         if (key === selected || selected === 'All') {
           setTimeout(() => {
-            this.page(key, { title: 'Hybrid Cloud Mesh', path: events[key].path, productCode: 'WW1314', productCodeType: 'WWPC' });
-            events[key].events.forEach((evt, evtIndex) => {
+            this.page(key as string, { title: 'Hybrid Cloud Mesh', path: eventsData[key].path, productCode: 'WW1314', productCodeType: 'WWPC' });
+            eventsData[key].events.forEach((evt, evtIndex) => {
               setTimeout(() => {
                 this.track(evt.event, { ...evt.props, action: `${key}, ${evt.props.action}` });
               }, selected === 'All' ? 5000 * (evtIndex + 1) + 800 : (evtIndex + 1) * 3000 + 800);
