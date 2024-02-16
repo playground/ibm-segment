@@ -1,8 +1,7 @@
 import Analytics from 'analytics-node';
-import eventsData from './events.json' assert { type: 'json' };
 
 interface EventProps {
-  [key: string]: any; 
+  [key: string]: any;
 }
 
 interface Event {
@@ -17,7 +16,7 @@ interface Events {
   };
 }
 
-function createSegment(writeKey?: string) {
+function createSegment(eventsData: Events, writeKey?: string) {
   let segmentAnalytics: Analytics | null = writeKey ? new Analytics(writeKey) : null;
 
   return {

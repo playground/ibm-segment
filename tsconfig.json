@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "module": "NodeNext", // or "NodeNext" if you're targeting Node.js specifically with the latest features
-    "target": "ESNext", // Adjust based on your environment
-    "moduleResolution": "NodeNext", // This is important for Node.js ESM support
-    "outDir": "./dist",
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "strict": true
   },
   "include": ["src/**/*"]
 }
