@@ -1,78 +1,55 @@
 import Analytics from 'analytics-node';
+import fs from 'fs';
 
 interface EventProps {
   [key: string]: any;
 }
 
-interface Event {
+interface TrackedEvent {
   event: string;
   props: EventProps;
 }
 
-interface Events {
-  [key: string]: {
-    path: string;
-    events: Event[];
-  };
+class SegmentTracker {
+  private segmentAnalytics: Analytics | null = null;
+
+  constructor(apiKey?: string) {
+    if (apiKey) {
+      this.segmentAnalytics = new Analytics(apiKey);
+      console.log('Analytics initialized with writeKey:', apiKey);
+    } else {
+      console.error('Segment API Key is required to initialize analytics tracking.');
+    }
+  }
+
+  public track(event: string, props: EventProps, userId: string = 'defaultUserId') {
+    if (!this.segmentAnalytics) {
+      console.error('Analytics not initialized');
+      return;
+    }
+    this.segmentAnalytics.track({
+      event,
+      properties: props,
+      userId: userId,
+    });
+    console.log(`Tracking event: ${event}`, props);
+  }
+
+  public loadAndTrackEventsFromFile(filePath: string) {
+    try {
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+      const eventsData = JSON.parse(fileContent);
+
+      Object.keys(eventsData).forEach((key) => {
+        const { path, events: eventList } = eventsData[key];
+        eventList.forEach((event: TrackedEvent) => { 
+          this.track(event.event, { ...event.props, path }, 'userId'); // Assuming 'userId' is dynamically set elsewhere
+        });
+      });
+    } catch (error) {
+      console.error('Failed to load or process events file', error);
+    }
+  }
 }
 
-function createSegment(eventsData: Events, writeKey?: string) {
-  let segmentAnalytics: Analytics | null = writeKey ? new Analytics(writeKey) : null;
-
-  return {
-    init: (newWriteKey: string) => {
-      segmentAnalytics = new Analytics(newWriteKey);
-      console.log('Analytics initialized with writeKey:', newWriteKey);
-    },
-
-    track: (event: string, props: EventProps) => {
-      if (!segmentAnalytics) {
-        console.error('Analytics not initialized');
-        return;
-      }
-      segmentAnalytics.track({
-        event,
-        properties: props,
-        userId: 'userId', // Ideally, this should be dynamically set based on your application's user context
-      });
-      console.log(`Tracking event: ${event}`, props);
-    },
-
-    page: (name: string, props: EventProps) => {
-      if (!segmentAnalytics) {
-        console.error('Analytics not initialized');
-        return;
-      }
-      segmentAnalytics.page({
-        name,
-        properties: props,
-        userId: 'userId', // Again, this should be dynamically set
-      });
-      console.log(`Page view: ${name}`, props);
-    },
-
-    automate: function (selected: string = 'All') {
-      if (!segmentAnalytics) {
-        console.error('Analytics not initialized');
-        return;
-      }
-      console.log(`Automating events for selection: ${selected}`);
-      const evtKeys = Object.keys(eventsData) as Array<keyof typeof eventsData>;
-
-      evtKeys.forEach((key, index) => {
-        if (key === selected || selected === 'All') {
-          setTimeout(() => {
-            this.page(key as string, { title: 'Hybrid Cloud Mesh', path: eventsData[key].path, productCode: 'WW1314', productCodeType: 'WWPC' });
-            eventsData[key].events.forEach((evt, evtIndex) => {
-              setTimeout(() => {
-                this.track(evt.event, { ...evt.props, action: `${key}, ${evt.props.action}` });
-              }, selected === 'All' ? 5000 * (evtIndex + 1) + 800 : (evtIndex + 1) * 3000 + 800);
-            });
-          }, selected === 'All' ? (index + 1) * 3000 + 300 : 300);
-        }
-      });
-    },
-  };
-}
-
-export default createSegment;
+export default SegmentTracker;
