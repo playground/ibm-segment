@@ -1,5 +1,6 @@
 import Analytics from 'analytics-node';
 import fs from 'fs';
+import yargs from 'yargs/yargs';
 
 interface EventProps {
   [key: string]: any;
