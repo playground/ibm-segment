@@ -1,6 +1,7 @@
 # ibm-segment
 
 A command-line interface (CLI) tool designed for seamless integration with Segment, enabling the tracking of events directly from your terminal. This tool simplifies the process of sending event data to Segment by allowing users to load events from a JSON file or input them manually.
+
 <img width="712" alt="image" src="https://media.github.ibm.com/user/438814/files/78e44f69-71bf-44df-b546-85e092857954">
 
 ## Features:
