@@ -19,10 +19,14 @@ The CLI supports the following options:
 - `--file`: Path to the JSON file containing events (optional if provided during runtime).
 If you've installed the CLI globally, you can run it from anywhere:
 ``` ibm-segment --apikey YOUR_SEGMENT_WRITE_KEY --file PATH_TO_YOUR_EVENTS_FILE.json```
-<img width="864" alt="image" src="https://media.github.ibm.com/user/438814/files/8c5b163d-6ce6-4d2f-89aa-7a6141d99719">
-After processing the events from the file, you will be asked if you want to track more events manually:
 
+From here you can select which events to fire from the JSON file. If no events are selected, all will be added.
+
+<img width="564" alt="image" src="https://media.github.ibm.com/user/438814/files/2e8d3db4-32cb-453f-a3e4-212ce40c2551">
+ After processing the events from the file, you will be asked if you want to track more events manually: 
+ 
 ``` > Would you like to track another event? (Y/n) ```
+
 ## Manual Event Tracking
 To manually track an event, provide the event name, properties (as a JSON string), and user ID when prompted.
 
