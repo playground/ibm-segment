@@ -18,6 +18,7 @@ A command-line interface (CLI) tool designed for seamless integration with Segme
 The CLI supports the following options:
 - `--apikey`: Your Segment Write Key (optional if provided during runtime).
 - `--file`: Path to the JSON file containing events (optional if provided during runtime).
+- 
 If you've installed the CLI globally, you can run it from anywhere:
 ``` ibm-segment --apikey YOUR_SEGMENT_WRITE_KEY --file PATH_TO_YOUR_EVENTS_FILE.json```
 
