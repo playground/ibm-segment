@@ -13,57 +13,20 @@ interface TrackedEvent {
 class SegmentTracker {
   private segmentAnalytics: Analytics | null = null;
 
-  private async verifySegmentAPIKey(apiKey: string): Promise<void> {
-    const analytics = new Analytics(apiKey);
-    const testEvent = {
-      userId: "testUserId",
-      event: "Test Event",
-      properties: {
-        test: true,
-        timestamp: new Date(),
-      },
-    };
-
-    return new Promise((resolve, reject) => {
-      analytics.track(testEvent, (err) => {
-        if (err) {
-          console.error("API Key verification failed:", err);
-          reject(err);
-        } else {
-          console.log(
-            "API Key verified successfully. Check your Segment dashboard to confirm the test event."
-          );
-          resolve();
-        }
-      });
-    });
-  }
 
   constructor(apiKey?: string) {
     if (apiKey) {
       this.segmentAnalytics = new Analytics(apiKey);
-      console.log("Analytics initialized with writeKey:", apiKey);
     } else {
-      console.error(
-        "Segment API Key is required to initialize analytics tracking."
-      );
+      console.error("Segment API Key is required to initialize analytics tracking.");
     }
   }
 
   public async initialize(apiKey: string): Promise<void> {
-    try {
-      await this.verifySegmentAPIKey(apiKey);
-      this.segmentAnalytics = new Analytics(apiKey);
-      console.log("Analytics initialized with writeKey:", apiKey);
-    } catch (error) {
-      console.error(
-        "Segment API Key verification failed. Please check the API Key.",
-        error
-      );
-      throw new Error(
-        "Segment API Key verification failed. Please check the API Key."
-      );
+    if (!apiKey) {
+      throw new Error("Segment API Key is required.");
     }
+    this.segmentAnalytics = new Analytics(apiKey);
   }
 
   public track(
