@@ -5,6 +5,9 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import SegmentTracker from "./index.js";
 
+const productCode = "WW1314";
+const productCodeType = "WWPC";
+
 interface CommandLineOptions {
   apikey: string;
   file?: string;
@@ -45,11 +48,12 @@ const initCLI = async () => {
           {
             type: "confirm",
             name: "proceedWithoutFile",
-            message: "File not found. Would you like to proceed with manual event tracking?",
+            message:
+              "File not found. Would you like to proceed with manual event tracking?",
           },
         ]);
         if (!proceedWithoutFile) return;
-        file = undefined; // Clear file path to skip file processing
+        file = undefined;
       }
     } catch (err) {
       console.error("An error occurred while checking the file path:", err);
@@ -70,13 +74,18 @@ const initCLI = async () => {
       },
     ]);
 
-
-    let groupsToTrigger = selectedGroups.length > 0 ? selectedGroups : eventGroups;
+    let groupsToTrigger =
+      selectedGroups.length > 0 ? selectedGroups : eventGroups;
 
     groupsToTrigger.forEach((group: string) => {
-      segmentTracker.loadAndTrackEventsFromGroup(file!, group).catch((error) => {
-        console.error(`Failed to load or track events for group ${group}:`, error);
-      });
+      segmentTracker
+        .loadAndTrackEventsFromGroup(file!, group)
+        .catch((error) => {
+          console.error(
+            `Failed to load or track events for group ${group}:`,
+            error
+          );
+        });
     });
   }
 
@@ -107,11 +116,11 @@ const initCLI = async () => {
           name: "event",
           message: "Enter the event name:",
           validate: (input) => {
-            if (input.trim() === '') {
-              return 'Event name cannot be empty. Please enter a valid event name.';
+            if (input.trim() === "") {
+              return "Event name cannot be empty. Please enter a valid event name.";
             }
             return true;
-          }
+          },
         },
       ]);
       event = eventResponse.event.trim();
@@ -133,7 +142,7 @@ const initCLI = async () => {
               validProps = false;
               return "This is not a valid JSON string. Please enter valid JSON properties.";
             }
-          }
+          },
         },
       ]);
       props = propsResponse.props.trim();
@@ -149,7 +158,14 @@ const initCLI = async () => {
     ]);
     userId = userIdResponse.userId.trim();
 
-    const parsedProps = JSON.parse(props);
+    let parsedProps = JSON.parse(props);
+
+    // extract out everything in props and put it into parsed props
+    parsedProps = {
+      ...parsedProps.props,
+      productCode: productCode,
+      productCodeType: productCodeType,
+    };
     segmentTracker.track(event, parsedProps, userId);
   } while (trackAnother);
 };

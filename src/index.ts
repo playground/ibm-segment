@@ -1,6 +1,9 @@
 import Analytics from "analytics-node";
 import fs from "fs";
 
+const productCode = "WW1314";
+const productCodeType = "WWPC";
+
 interface EventProps {
   [key: string]: any;
 }
@@ -69,7 +72,7 @@ class SegmentTracker {
     try {
       const fileContent = fs.readFileSync(filePath, "utf8");
       const eventsData = JSON.parse(fileContent);
-
+  
       const groupData = eventsData[groupName];
       if (!groupData || !Array.isArray(groupData.events)) {
         console.error(
@@ -77,10 +80,17 @@ class SegmentTracker {
         );
         return;
       }
+  
 
+  
       groupData.events.forEach((event: TrackedEvent) => {
         if (event.event) {
-          this.track(event.event, event.props, "userId");
+          const enhancedProps = {
+            ...event.props,
+            productCode: productCode,
+            productCodeType: productCodeType,
+          };
+          this.track(event.event, enhancedProps, "userId");
         } else {
           console.error(
             "Invalid event object, missing 'event' property:",
