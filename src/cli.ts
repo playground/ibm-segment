@@ -7,7 +7,7 @@ import SegmentTracker from "./index.js";
 
 interface CommandLineOptions {
   apikey: string;
-  file: string;
+  file?: string;
 }
 
 const argv = yargs(hideBin(process.argv))
@@ -20,7 +20,6 @@ const argv = yargs(hideBin(process.argv))
   .option("file", {
     describe: "Path to the JSON file containing events",
     type: "string",
-    demandOption: true, // Making file path mandatory
   })
   .help("h")
   .alias("h", "help").argv as unknown as CommandLineOptions;
@@ -37,42 +36,49 @@ async function listEventGroups(filePath: string): Promise<string[]> {
 const initCLI = async () => {
   let { apikey, file } = argv;
 
-  try {
-    if (!fs.existsSync(file)) {
-      console.error("File does not exist at the provided path.");
+  if (file) {
+    try {
+      if (!fs.existsSync(file)) {
+        console.error("File does not exist at the provided path.");
+        // Ask if the user wants to proceed without a file
+        const { proceedWithoutFile } = await inquirer.prompt([
+          {
+            type: "confirm",
+            name: "proceedWithoutFile",
+            message: "File not found. Would you like to proceed with manual event tracking?",
+          },
+        ]);
+        if (!proceedWithoutFile) return;
+        file = undefined; // Clear file path to skip file processing
+      }
+    } catch (err) {
+      console.error("An error occurred while checking the file path:", err);
       return;
     }
-  } catch (err) {
-    console.error("An error occurred while checking the file path:", err);
-    return;
   }
-
   const segmentTracker = new SegmentTracker(apikey);
   await segmentTracker.initialize(apikey);
 
-  const eventGroups = await listEventGroups(file);
-  const { selectedGroups } = await inquirer.prompt([
-    {
-      type: "checkbox",
-      name: "selectedGroups",
-      message: "Select event groups to trigger (select none to trigger all):",
-      choices: eventGroups,
-    },
-  ]);
+  if (file) {
+    const eventGroups = await listEventGroups(file);
+    const { selectedGroups } = await inquirer.prompt([
+      {
+        type: "checkbox",
+        name: "selectedGroups",
+        message: "Select event groups to trigger (select none to trigger all):",
+        choices: eventGroups,
+      },
+    ]);
 
-  let groupsToTrigger =
-    selectedGroups.length > 0 ? selectedGroups : eventGroups;
-  const fileContent = fs.readFileSync(file, "utf8");
-  const eventsData = JSON.parse(fileContent);
 
-  groupsToTrigger.forEach((group: string) => {
-    segmentTracker.loadAndTrackEventsFromGroup(file, group).catch((error) => {
-      console.error(
-        `Failed to load or track events for group ${group}:`,
-        error
-      );
+    let groupsToTrigger = selectedGroups.length > 0 ? selectedGroups : eventGroups;
+
+    groupsToTrigger.forEach((group: string) => {
+      segmentTracker.loadAndTrackEventsFromGroup(file!, group).catch((error) => {
+        console.error(`Failed to load or track events for group ${group}:`, error);
+      });
     });
-  });
+  }
 
   let trackAnother = true;
   do {
