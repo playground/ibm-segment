@@ -65,17 +65,26 @@ const initCLI = async () => {
 
   if (file) {
     const eventGroups = await listEventGroups(file);
+    const allOption = "All";
+    const choices = [allOption, ...eventGroups];
+
     const { selectedGroups } = await inquirer.prompt([
       {
         type: "checkbox",
         name: "selectedGroups",
-        message: "Select event groups to trigger (select none to trigger all):",
-        choices: eventGroups,
+        message:
+          'Select one or more event groups to trigger or choose "All" to trigger all events:',
+        choices: choices,
       },
     ]);
 
-    let groupsToTrigger =
-      selectedGroups.length > 0 ? selectedGroups : eventGroups;
+    let groupsToTrigger: string[];
+
+    if (selectedGroups.includes(allOption)) {
+      groupsToTrigger = eventGroups;
+    } else {
+      groupsToTrigger = selectedGroups;
+    }
 
     groupsToTrigger.forEach((group: string) => {
       segmentTracker
