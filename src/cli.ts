@@ -43,7 +43,20 @@ async function listEventGroups(filePath: string): Promise<string[]> {
 }
 
 const initCLI = async () => {
-  let { apikey, file } = argv;
+  let { apikey, file, payload } = argv;
+
+  let payloadOverrides = {};
+
+  if (payload) {
+    try {
+      payloadOverrides = JSON.parse(payload);
+    } catch (error) {
+      console.error("Failed to parse payload:", error);
+      return;
+    }
+  }
+
+
 
   if (file) {
     try {
@@ -175,12 +188,15 @@ const initCLI = async () => {
 
     let parsedProps = JSON.parse(props);
 
+
     // extract out everything in props and put it into parsed props
     parsedProps = {
-      ...parsedProps.props,
+      ...parsedProps,
+      ...payloadOverrides,
       productCode: productCode,
       productCodeType: productCodeType,
     };
+    console.log(parsedProps)
     segmentTracker.track(event, parsedProps, userId);
   } while (trackAnother);
 };
