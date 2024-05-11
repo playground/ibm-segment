@@ -51,7 +51,9 @@ const initCLI = async () => {
     try {
       payloadOverrides = JSON.parse(payload);
     } catch (error) {
-      console.error("Failed to parse payload:", error);
+      const errorMessage = (error instanceof Error) ? error.message : 'Unknown error';
+      console.error("Error parsing payload. Please ensure your JSON is correctly formatted. Example format: --payload '{\"key\":\"value\"}'");
+      console.error("Error details:", errorMessage);
       return;
     }
   }
