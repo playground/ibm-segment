@@ -14,7 +14,7 @@ interface CommandLineOptions {
 }
 
 const argv = yargs(hideBin(process.argv))
-  .usage("Usage: $0 --apikey [string] --file [string]")
+  .usage("Usage: $0 --apikey [string] --file [string] --payload [json]")
   .option("apikey", {
     describe: "Your Segment Write Key",
     type: "string",
@@ -24,8 +24,14 @@ const argv = yargs(hideBin(process.argv))
     describe: "Path to the JSON file containing events",
     type: "string",
   })
+  .option("payload", {
+    describe: "JSON string containing event name and properties",
+    type: "string",
+  })
   .help("h")
-  .alias("h", "help").argv as unknown as CommandLineOptions;
+  .alias("h", "help").argv as unknown as CommandLineOptions & {
+    payload?: string;
+  };
 
 async function listEventGroups(filePath: string): Promise<string[]> {
   if (fs.lstatSync(filePath).isDirectory()) {
@@ -37,7 +43,22 @@ async function listEventGroups(filePath: string): Promise<string[]> {
 }
 
 const initCLI = async () => {
-  let { apikey, file } = argv;
+  let { apikey, file, payload } = argv;
+
+  let payloadOverrides = {};
+
+  if (payload) {
+    try {
+      payloadOverrides = JSON.parse(payload);
+    } catch (error) {
+      const errorMessage = (error instanceof Error) ? error.message : 'Unknown error';
+      console.error("Error parsing payload. Please ensure your JSON is correctly formatted. Example format: --payload '{\"key\":\"value\"}'");
+      console.error("Error details:", errorMessage);
+      return;
+    }
+  }
+
+
 
   if (file) {
     try {
@@ -169,12 +190,15 @@ const initCLI = async () => {
 
     let parsedProps = JSON.parse(props);
 
+
     // extract out everything in props and put it into parsed props
     parsedProps = {
-      ...parsedProps.props,
+      ...parsedProps,
+      ...payloadOverrides,
       productCode: productCode,
       productCodeType: productCodeType,
     };
+    console.log(parsedProps)
     segmentTracker.track(event, parsedProps, userId);
   } while (trackAnother);
 };
