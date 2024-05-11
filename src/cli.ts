@@ -14,7 +14,7 @@ interface CommandLineOptions {
 }
 
 const argv = yargs(hideBin(process.argv))
-  .usage("Usage: $0 --apikey [string] --file [string]")
+  .usage("Usage: $0 --apikey [string] --file [string] --payload [json]")
   .option("apikey", {
     describe: "Your Segment Write Key",
     type: "string",
@@ -24,8 +24,14 @@ const argv = yargs(hideBin(process.argv))
     describe: "Path to the JSON file containing events",
     type: "string",
   })
+  .option("payload", {
+    describe: "JSON string containing event name and properties",
+    type: "string",
+  })
   .help("h")
-  .alias("h", "help").argv as unknown as CommandLineOptions;
+  .alias("h", "help").argv as unknown as CommandLineOptions & {
+    payload?: string;
+  };
 
 async function listEventGroups(filePath: string): Promise<string[]> {
   if (fs.lstatSync(filePath).isDirectory()) {
