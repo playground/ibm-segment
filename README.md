@@ -18,9 +18,21 @@ A command-line interface (CLI) tool designed for seamless integration with Segme
 The CLI supports the following options:
 - `--apikey`: Your Segment Write Key (optional if provided during runtime).
 - `--file`: Path to the JSON file containing events (optional if provided during runtime).
-- 
+- `--payload`: JSON string to override event properties (optional).
+
 If you've installed the CLI globally, you can run it from anywhere:
 ``` ibm-segment --apikey YOUR_SEGMENT_WRITE_KEY --file PATH_TO_YOUR_EVENTS_FILE.json```
+
+
+### Overriding Event Properties
+You can override specific properties of the events by providing a JSON string with the `--payload` option. This is useful for setting or modifying properties like `userId` or `instanceId` directly from the command line.
+
+Example:
+```bash
+ibm-segment --apikey YOUR_SEGMENT_WRITE_KEY --file PATH_TO_YOUR_EVENTS_FILE.json --payload '{"userId":"joe@doe.com", "instanceId":"abc"}'
+```
+**Note:** Ensure your JSON string is correctly formatted. Incorrect JSON formats will result in an error, and the CLI will not proceed with tracking the events.
+
 
 From here you can select which events to fire from the JSON file. If no events are selected, all will be added.
 
